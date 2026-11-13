@@ -1,0 +1,16 @@
+=== Étape 1 - 5 parties x 200 tours, graine 42, auto-rencontres : non ===
+
+Classement :
+  1. ALL-D              9482   (coopération :   0.0 %)
+  2. TIT-FOR-TAT        9056   (coopération :  27.3 %)
+  3. TESTER             8976   (coopération :  26.7 %)
+  4. JOSS               8728   (coopération :  14.7 %)
+  5. RANDOM             8477   (coopération :  49.4 %)
+
+Matrice des scores (ligne = score de la stratégie contre la colonne) :
+                      ALL-D      RANDOM TIT-FOR-TAT      TESTER        JOSS
+ALL-D                     0        3440        2015        2015        2012
+RANDOM                 1040           0        2497        2572        2368
+TIT-FOR-TAT            1990        2487           0        2500        2079
+TESTER                 1990        2452        2500           0        2034
+JOSS                   1992        2593        2104        2039           0

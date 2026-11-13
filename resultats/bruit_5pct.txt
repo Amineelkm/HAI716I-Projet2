@@ -1,0 +1,41 @@
+=== Sans bruit (graine 42) ===
+
+Classement :
+  1. ALL-D              9482   (coopération :   0.0 %)
+  2. TIT-FOR-TAT        9056   (coopération :  27.3 %)
+  3. TESTER             8976   (coopération :  26.7 %)
+  4. JOSS               8728   (coopération :  14.7 %)
+  5. RANDOM             8477   (coopération :  49.4 %)
+
+Matrice des scores (ligne = score de la stratégie contre la colonne) :
+                      ALL-D      RANDOM TIT-FOR-TAT      TESTER        JOSS
+ALL-D                     0        3440        2015        2015        2012
+RANDOM                 1040           0        2497        2572        2368
+TIT-FOR-TAT            1990        2487           0        2500        2079
+TESTER                 1990        2452        2500           0        2034
+JOSS                   1992        2593        2104        2039           0
+
+=== Avec bruit de 5 % (graine 42) ===
+
+Classement :
+  1. ALL-D              9877   (coopération :   4.7 %)
+  2. TIT-FOR-TAT        9349   (coopération :  39.1 %)
+  3. JOSS               9310   (coopération :  29.2 %)
+  4. TESTER             9018   (coopération :  39.9 %)
+  5. RANDOM             8959   (coopération :  50.0 %)
+
+Matrice des scores (ligne = score de la stratégie contre la colonne) :
+                      ALL-D      RANDOM TIT-FOR-TAT      TESTER        JOSS
+ALL-D                     0        3345        2178        2196        2158
+RANDOM                 1180           0        2557        2891        2331
+TIT-FOR-TAT            1953        2527           0        2552        2317
+TESTER                 1956        2211        2582           0        2269
+JOSS                   1973        2611        2387        2339           0
+
+=== Comparaison ===
+Stratégie       rang sans rang avec  score sans  score avec  coop sans  coop avec
+ALL-D                   1         1        9482        9877       0.0%       4.7%
+TIT-FOR-TAT             2         2        9056        9349      27.3%      39.1%
+JOSS                    4         3        8728        9310      14.7%      29.2%
+TESTER                  3         4        8976        9018      26.7%      39.9%
+RANDOM                  5         5        8477        8959      49.4%      50.0%
