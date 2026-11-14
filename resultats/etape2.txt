@@ -1,0 +1,30 @@
+=== Étape 2 - 7 stratégies, 5 parties x 200 tours, graine 42, auto-rencontres : non ===
+
+Classement :
+  1. TIT-FOR-TAT       15063   (coopération :  51.6 %)
+  2. ALL-D             15012   (coopération :   0.0 %)
+  3. TESTER            14973   (coopération :  34.2 %)
+  4. TF2T              14409   (coopération :  74.2 %)
+  5. RANDOM            14174   (coopération :  49.5 %)
+  6. PAVLOV            14155   (coopération :  61.1 %)
+  7. JOSS              13979   (coopération :  25.3 %)
+
+Matrice des scores (ligne = score de la stratégie contre la colonne) :
+                      ALL-D      RANDOM TIT-FOR-TAT      TESTER        JOSS        TF2T      PAVLOV
+ALL-D                     0        3440        2015        2015        2012        2030        3500
+RANDOM                 1040           0        2497        2572        2368        3290        2407
+TIT-FOR-TAT            1990        2487           0        2500        2086        3000        3000
+TESTER                 1990        2452        2500           0        2026        3670        2335
+JOSS                   1992        2593        2111        2026           0        2829        2428
+TF2T                   1980        1960        3000        1995        2474           0        3000
+PAVLOV                 1000        2572        3000        2335        2248        3000           0
+
+=== Comparaison avec l'étape 1 (5 stratégies) ===
+Stratégie       rang étape 1 rang étape 2  score étape 1  score étape 2
+TIT-FOR-TAT                2            1           9056          15063
+ALL-D                      1            2           9482          15012
+TESTER                     3            3           8976          14973
+TF2T                       -            4              -          14409
+RANDOM                     5            5           8477          14174
+PAVLOV                     -            6              -          14155
+JOSS                       4            7           8728          13979
