@@ -179,56 +179,36 @@ Le choix a été fait ensemble avec Ethan, qui les a programmées. Plutôt que d
 
 ### Résultats et comparaison avec l'étape 1
 
-Commande : `python3 src/etape2.py` (et `python3 src/etape2.py --auto`). Résultats complets dans `resultats/etape2.txt` et `resultats/etape2_auto.txt`.
+Avant le tournoi, on a vérifié les deux stratégies avec six tests calculés à la main, ajoutés à `verifier.py`. Par exemple, TF2T contre ALL-D doit donner 396 / 406.
+
+![Vérifications des nouvelles stratégies](captures/ethan_verifier.png)
+
+Commande : `python3 src/etape2.py`, sortie dans `resultats/etape2.txt`.
 
 ![Étape 2](captures/ethan_etape2.png)
-![Étape 2 avec auto-rencontres](captures/ethan_etape2_auto.png)
 
-**Classement à 7 stratégies, comparé à l'étape 1.** Le total n'est pas comparable d'une étape à l'autre : à l'étape 2, chaque stratégie joue 6 adversaires au lieu de 4. On ajoute donc le score moyen par adversaire (total divisé par le nombre d'adversaires).
+Chaque stratégie a maintenant 6 adversaires au lieu de 4. On compare donc la moyenne par adversaire, pas le total.
 
-| Stratégie   | Rang étape 1 | Rang étape 2 | Total étape 1 → 2 | Moyenne par adversaire 1 → 2 | Coop. étape 2 |
-| ----------- | ------------ | ------------ | ----------------- | ---------------------------- | ------------- |
-| TIT-FOR-TAT | 2            | 1            | 9056 → 15063      | 2264 → 2511                  | 51,6 %        |
-| ALL-D       | 1            | 2            | 9482 → 15012      | 2371 → 2502                  | 0,0 %         |
-| TESTER      | 3            | 3            | 8976 → 14973      | 2244 → 2496                  | 34,2 %        |
-| TF2T        | –            | 4            | –  → 14409        | – → 2402                     | 74,2 %        |
-| RANDOM      | 5            | 5            | 8477 → 14174      | 2119 → 2362                  | 49,5 %        |
-| PAVLOV      | –            | 6            | –  → 14155        | – → 2359                     | 61,1 %        |
-| JOSS        | 4            | 7            | 8728 → 13979      | 2182 → 2330                  | 25,3 %        |
+| Stratégie   | Rang étape 1 → 2 | Moyenne par adversaire 1 → 2 |
+| ----------- | ---------------- | ---------------------------- |
+| TIT-FOR-TAT | 2 → 1            | 2264 → 2511                  |
+| ALL-D       | 1 → 2            | 2371 → 2502                  |
+| TESTER      | 3 → 3            | 2244 → 2496                  |
+| TF2T        | – → 4            | – → 2402                     |
+| RANDOM      | 5 → 5            | 2119 → 2362                  |
+| PAVLOV      | – → 6            | – → 2359                     |
+| JOSS        | 4 → 7            | 2182 → 2330                  |
 
-Avec les auto-rencontres, le classement est : TIT-FOR-TAT 18061, TESTER 17624, TF2T 17622, PAVLOV 17019, ALL-D 17012, RANDOM 16919, JOSS 16343. TFT reste 1er (il l'était déjà à l'étape 1), ALL-D passe de la 3e à la 5e place.
+**TFT repasse 1er, mais de 51 points seulement** (15063 contre 15012). L'écart est faible et une seule graine a été testée. Ce qui est solide, c'est que TFT, TF2T et PAVLOV marquent 3000 entre elles : TFT a enfin les partenaires qui lui manquaient à l'étape 1. Le cours le dit à la diapo 62 : une stratégie coopérative gagne quand elle croise assez de coopérateurs.
 
-Matrice des duels à 7 stratégies, sans auto-rencontres (score de la ligne contre la colonne, sur 5 parties) :
+**Prédictions :**
 
-|            | ALL-D | RANDOM | TFT  | TESTER | JOSS | TF2T | PAVLOV |
-| ---------- | ----- | ------ | ---- | ------ | ---- | ---- | ------ |
-| **ALL-D**  | –     | 3440   | 2015 | 2015   | 2012 | 2030 | 3500   |
-| **RANDOM** | 1040  | –      | 2497 | 2572   | 2368 | 3290 | 2407   |
-| **TFT**    | 1990  | 2487   | –    | 2500   | 2086 | 3000 | 3000   |
-| **TESTER** | 1990  | 2452   | 2500 | –      | 2026 | 3670 | 2335   |
-| **JOSS**   | 1992  | 2593   | 2111 | 2026   | –    | 2829 | 2428   |
-| **TF2T**   | 1980  | 1960   | 3000 | 1995   | 2474 | –    | 3000   |
-| **PAVLOV** | 1000  | 2572   | 3000 | 2335   | 2248 | 3000 | –      |
+1. TF2T fait 396 / 406 contre ALL-D, et PAVLOV 200 / 700 : **juste**.
+2. Les trois stratégies gentilles coopèrent entre elles et le score de TFT monte : **juste**.
+3. TESTER exploite TF2T et monte au classement : **à moitié juste**. Il lui prend bien 3670 points, son meilleur duel, mais il reste 3e. Il est freiné par l'écho contre TFT (2500) et par son duel contre PAVLOV (2335).
+4. ALL-D perd la 1re place : **juste, mais de peu**. On n'avait pas prévu que PAVLOV lui offrirait une nouvelle victime : ALL-D lui prend 3500 points, plus qu'à RANDOM (3440).
 
-**Réponse : TFT prend la 1re place, mais de justesse.** Il passe devant ALL-D de 51 points seulement (15063 contre 15012), et TESTER est à 90 points. Avec une seule graine, ce petit écart peut dépendre du hasard de RANDOM et de JOSS. On ne l'a pas testé avec d'autres graines. Ce qui est solide, c'est la structure de la matrice : TFT, TF2T et PAVLOV font 3000 entre eux, ce qui n'existait pas à l'étape 1.
-
-#### Comparaison avec les prédictions
-
-1. **Contre ALL-D : juste.** TF2T fait 1980 contre 2030 pour ALL-D, soit 396 / 406 par partie. PAVLOV fait 1000 contre 3500, soit 200 / 700 par partie. Ces valeurs sont aussi vérifiées par `verifier.py`.
-2. **TF2T, PAVLOV et TFT coopèrent pleinement entre elles : juste.** Les trois duels valent 3000 / 3000 (3 points par tour pendant 1000 tours). Le score de TFT monte nettement : sa moyenne par adversaire passe de 2264 à 2511 (+11 %), et il gagne une place.
-3. **TESTER exploite TF2T et monte au classement : à moitié juste.** L'exploitation est bien là : TESTER prend 3670 à TF2T, c'est son meilleur duel, alors que TF2T n'en tire que 1995 (le cycle C, C, D ne contient jamais deux D de suite, donc TF2T ne riposte jamais). Mais TESTER **ne monte pas** : il reste 3e. Sa moyenne par adversaire progresse (2244 → 2496), mais celles de TFT et d'ALL-D progressent aussi, donc il garde sa place. Notre erreur est d'avoir pensé que le gain contre TF2T suffirait : TESTER ne fait que 2335 contre PAVLOV, et 2500 contre TFT à cause de l'écho (voir plus haut).
-4. **ALL-D perd la 1re place : juste, mais de peu.** Il passe 2e. Notre raisonnement était incomplet : on pensait que les nouvelles stratégies ne l'aideraient pas. Or **PAVLOV lui offre une nouvelle victime** (3500, plus que RANDOM avec 3440). Seule TF2T lui résiste (2030, car elle riposte après deux trahisons). C'est pour ça qu'ALL-D reste à 51 points de la tête.
-
-#### Ce que le tournoi dit des deux nouvelles fiches
-
-- **TF2T** (4e) coopère à 74,2 %, c'est la stratégie la plus coopérative. Elle **gagne** contre TFT et PAVLOV (3000 chacun) et **perd** contre ceux qui l'exploitent : TESTER (1995 contre 3670), RANDOM (3290 pour RANDOM) et, à moindre échelle, JOSS (2474 contre 2829). Elle ne tombe pas dans l'écho, mais elle laisse les trahisons gratuites : c'est la règle d'Axelrod « rendre la pareille » appliquée trop mollement.
-- **PAVLOV** (6e) fait 3000 avec TFT et TF2T, mais s'effondre contre ALL-D (1000, contre 1990 pour TFT). Elle n'a pas de mémoire : après D/D, elle change pour C, prend 0, change pour D, etc. Ces 990 points perdus par rapport à TFT l'emportent sur ses bons duels. Elle fait mieux que TFT contre JOSS (2248 contre 2086), mais moins bien contre TESTER (2335 contre 2500).
-
-#### Lien avec le cours
-
-- **Diapo 62 :** une stratégie coopérative peut gagner au total si elle croise assez de coopérateurs. C'est ce qui arrive à TFT : coopération à 51,6 % seulement, mais 3000 contre TF2T et PAVLOV. Les deux stratégies ajoutées lui ont fourni les partenaires qui lui manquaient à l'étape 1.
-- **Diapo 69 :** TFT n'est pas « la » stratégie optimale, son score dépend de la population. À l'étape 1 il est 2e, à l'étape 2 il est 1er, sans qu'on ait touché à sa règle. Mais TF2T, plus coopérative encore (74,2 %), n'est que 4e : être très gentil ne suffit pas non plus.
-- **Diapo 70 (règles d'Axelrod) :** les trois stratégies gentilles (TFT, TF2T, PAVLOV) coopèrent entre elles. TFT n'est jamais envieux (il ne cherche pas à battre son adversaire dans un duel) et rend la pareille tout de suite ; TF2T attend deux trahisons, et se fait exploiter. JOSS, trop malin (il trahit sans raison), finit 7e, et TESTER ne se classe 3e que grâce à son duel contre TF2T.
+**Bilan des deux stratégies : aucune ne gagne.** TF2T (4e) n'entre jamais dans l'écho, mais elle se laisse exploiter par TESTER et RANDOM. PAVLOV (6e) s'effondre contre ALL-D (1000 points, contre 1990 pour TFT) : après chaque D/D, elle repasse à C et se fait exploiter. Être plus gentil que TFT ne suffit donc pas, et le score d'une stratégie dépend de la population qu'elle rencontre (diapo 69).
 
 ---
 
@@ -298,38 +278,32 @@ On avait sous-estimé un effet : **TFT réagit mécaniquement à chaque erreur, 
 
 À 5 %, l'effet de déblocage dominait. À 10 %, c'est l'effet d'exploitation qui l'emporte. **Le bruit révèle que TFT est trop rigide :** il ne sait pas faire la différence entre une erreur et une trahison. C'est exactement le défaut que PAVLOV et TF2T sont censées corriger.
 
-### Les nouvelles stratégies résistent-elles mieux au bruit ? (population élargie)
+### Le bruit avec TF2T et PAVLOV
 
-Une fois TF2T et PAVLOV ajoutées, `bruit.py` joue à 7 stratégies (il lit `strategies_nouvelles.py`). Les tableaux ci-dessus portent sur 5 stratégies (voir « Impasses »). On a donc relancé le bruit sur les 7 : `python3 src/bruit.py --bruit 0.05` et `--bruit 0.10`, dont la sortie est conservée dans `resultats/bruit_elargie_5pct.txt` et `resultats/bruit_elargie_10pct.txt`.
+Depuis l'ajout de TF2T et PAVLOV, `bruit.py` joue à 7 stratégies (voir les impasses). Les sorties sont dans `resultats/bruit_elargie_5pct.txt` et `resultats/bruit_elargie_10pct.txt`.
 
-**Prédiction (annoncée plus haut, avant ce lancement) :** PAVLOV et TF2T corrigent le défaut de TFT, donc elles devraient perdre moins que lui quand le bruit augmente.
+**Prédiction**, tirée de la conclusion de la section précédente : PAVLOV et TF2T devraient perdre moins de points que TFT quand le bruit augmente.
 
-![Bruit 5 %, population élargie](captures/ethan_bruit_elargie_5.png)
 ![Bruit 10 %, population élargie](captures/ethan_bruit_elargie_10.png)
 
-| Stratégie   | Rang sans → 5 % → 10 % | Score sans → 5 % → 10 %   | Coop. sans → 5 % → 10 %   |
-| ----------- | ---------------------- | ------------------------- | ------------------------- |
-| ALL-D       | 2 → 1 → 1              | 15012 → 15648 → 16182     | 0,0 % → 4,5 % → 10,1 %    |
-| JOSS        | 7 → 2 → 2              | 13979 → 14968 → 15155     | 25,3 % → 39,9 % → 44,0 %  |
-| TESTER      | 3 → 3 → 3              | 14973 → 14935 → 14907     | 34,2 % → 48,0 % → 48,6 %  |
-| TIT-FOR-TAT | 1 → 4 → 4              | 15063 → 14752 → 14808     | 51,6 % → 47,0 % → 47,6 %  |
-| RANDOM      | 5 → 5 → 5              | 14174 → 14585 → 14462     | 49,5 % → 49,9 % → 50,5 %  |
-| PAVLOV      | 6 → 6 → 6              | 14155 → 14028 → 14192     | 61,1 % → 50,1 % → 48,3 %  |
-| TF2T        | 4 → 7 → 7              | 14409 → 13705 → 13413     | 74,2 % → 71,0 % → 69,4 %  |
+| Stratégie   | Rang sans bruit → 10 % | Score sans bruit → 10 % |
+| ----------- | ---------------------- | ----------------------- |
+| ALL-D       | 2 → 1                  | 15012 → 16182           |
+| JOSS        | 7 → 2                  | 13979 → 15155           |
+| TESTER      | 3 → 3                  | 14973 → 14907           |
+| TIT-FOR-TAT | 1 → 4                  | 15063 → 14808           |
+| RANDOM      | 5 → 5                  | 14174 → 14462           |
+| PAVLOV      | 6 → 6                  | 14155 → 14192           |
+| TF2T        | 4 → 7                  | 14409 → 13413           |
 
-**Verdict : prédiction fausse pour le classement, partiellement juste pour PAVLOV.**
+À 5 %, le classement est le même.
 
-- **PAVLOV perd moins de points que TFT** (−127 à 5 %, +37 à 10 %, contre −311 et −255 pour TFT). Elle est donc stable face au bruit. Mais elle reste 6e, et TFT, même après sa chute, garde 616 points d'avance sur elle à 10 % (14808 contre 14192).
-- **TF2T résiste moins bien que TFT** : elle perd 704 puis 996 points, et finit dernière. Sa coopération baisse peu (74,2 % → 69,4 %), mais elle se fait exploiter.
+**La prédiction est juste pour PAVLOV et fausse pour TF2T.**
 
-**Explication d'après la matrice des duels à 10 % :**
+- **PAVLOV résiste au bruit** : son score gagne 37 points, alors que celui de TFT en perd 255. Elle reste pourtant 6e, parce qu'elle part de trop bas contre ALL-D.
+- **TF2T s'effondre** : elle perd 996 points et finit dernière. Comme elle ne riposte qu'à deux trahisons de suite, chaque erreur de l'adversaire devient un gain gratuit pour lui. Le cas le plus net est celui de PAVLOV, dont le score contre TF2T passe de 3000 à 2958, tandis que celui de TF2T tombe à 2103. On l'a vérifié coup par coup. Quand PAVLOV trahit par erreur, elle gagne 5 et garde donc son coup. TF2T ne riposte qu'au second D. PAVLOV perd alors, change de coup, puis recommence. Une seule erreur suffit à lancer un cycle de 4 tours où PAVLOV marque 12 points contre 7 pour TF2T, et ce cycle dure jusqu'à l'erreur suivante.
 
-- PAVLOV part trop bas : contre ALL-D elle fait 1269 (TFT : 1937), et le bruit ne change pas ça (1000 sans bruit). Contre TFT elle ne fait que 2434 au lieu de 3000.
-- Le « retour à la coopération en deux tours » décrit pour PAVLOV vaut quand deux PAVLOV se rencontrent. Sans auto-rencontres, elle n'en croise jamais dans ce tournoi. On n'a pas mesuré cet effet ici, c'est une hypothèse.
-- TF2T tombe de 3000 à 2103 contre PAVLOV, qui en tire 2958. On pense que PAVLOV exploite son indulgence après une erreur : celle qui vient de trahir en gagnant 5 « reste » en D, alors que TF2T attend deux trahisons avant de réagir. On n'a pas vérifié coup par coup, c'est aussi une hypothèse.
-- JOSS monte à la 2e place pour la raison donnée plus haut : avec du bruit, ses trahisons volontaires se perdent dans les erreurs.
-
-**Lien avec le cours (diapo 72) :** le bruit est le cadre où Nowak et Sigmund défendent le TFT généreux, qui pardonne au hasard une partie des trahisons. Les deux stratégies qu'on a choisies sont censées corriger le problème dans leur cas type (TF2T contre l'écho, PAVLOV contre sa copie), mais cela ne se voit pas dans une population avec ALL-D, RANDOM et JOSS. Le TFT généreux, qu'on avait écarté parce qu'il figure au cours, serait le candidat naturel pour une suite. On ne l'a pas testé.
+C'est le cadre de la diapo 72, où Nowak et Sigmund défendent le TFT généreux. On ne l'a pas testé : il figure au cours.
 
 ---
 
@@ -357,50 +331,27 @@ Le classement de l'étape 1 est une photo : il dit qui gagne le plus de points *
 
 ### Résultats et comparaison avec la prédiction
 
-Commandes : `python3 src/selection.py` (population élargie, 7 stratégies) et `python3 src/selection.py --population cours` (les 5 stratégies du cours), 100 générations chacune. Résultats complets dans `resultats/selection_elargie.txt` et `resultats/selection_cours.txt`. Les scores de départ viennent des matrices avec auto-rencontres (`resultats/etape2_auto.txt` et `resultats/etape1_auto.txt`).
+Commandes : `python3 src/selection.py` pour les 7 stratégies, et `python3 src/selection.py --population cours` pour les 5 stratégies du cours. Chaque simulation dure 100 générations. Les sorties sont dans `resultats/selection_elargie.txt` et `resultats/selection_cours.txt`.
 
 ![Sélection, population élargie](captures/ethan_selection_elargie.png)
 ![Sélection, population du cours](captures/ethan_selection_cours.png)
-![Sortie, population élargie](captures/ethan_selection_elargie_sortie.png)
-![Sortie, population du cours](captures/ethan_selection_cours_sortie.png)
 
-**Population élargie (parts en %) :**
+**Parts finales.** Avec les 7 stratégies : TFT 66,07 %, PAVLOV 19,97 %, TF2T 13,97 %, et 0 % pour les quatre autres. Avec les 5 du cours, TFT finit seul à 100 %.
 
-| Génération | ALL-D | RANDOM | TFT   | TESTER | JOSS  | TF2T  | PAVLOV |
-| ---------- | ----- | ------ | ----- | ------ | ----- | ----- | ------ |
-| 0          | 14,29 | 14,29  | 14,29 | 14,29  | 14,29 | 14,29 | 14,29  |
-| 10         | 9,70  | 11,88  | 22,99 | 18,02  | 7,44  | 16,71 | 13,27  |
-| 20         | 3,54  | 9,35   | 35,01 | 19,14  | 2,50  | 16,29 | 14,16  |
-| 30         | 0,74  | 5,78   | 48,11 | 13,77  | 0,50  | 14,80 | 16,30  |
-| 50         | 0,01  | 0,76   | 63,67 | 2,11   | 0,01  | 14,00 | 19,45  |
-| 100        | 0,00  | 0,00   | 66,07 | 0,00   | 0,00  | 13,97 | 19,97  |
+**La victoire d'ALL-D à l'étape 1 ne dure pas** : dans les deux populations, sa part tombe sous 1 % dès la génération 30.
 
-**Population du cours (parts en %) :**
+**Prédictions :**
 
-| Génération | ALL-D | RANDOM | TFT    | TESTER | JOSS  |
-| ---------- | ----- | ------ | ------ | ------ | ----- |
-| 0          | 20,00 | 20,00  | 20,00  | 20,00  | 20,00 |
-| 10         | 15,74 | 14,42  | 37,56  | 23,20  | 9,08  |
-| 20         | 3,69  | 8,24   | 69,02  | 17,40  | 1,64  |
-| 30         | 0,19  | 2,51   | 91,75  | 5,46   | 0,09  |
-| 50         | 0,00  | 0,08   | 99,75  | 0,17   | 0,00  |
-| 100        | 0,00  | 0,00   | 100,00 | 0,00   | 0,00  |
+1. ALL-D grandit au début : **faux** pour la population élargie, **à peine vrai** pour celle du cours (pic à 20,19 % à la génération 2). Il ne marque que 2000 contre lui-même et environ 2015 contre TFT et TESTER. Son seul bon duel, contre RANDOM, ne suffit pas à le placer au-dessus de la moyenne.
+2. RANDOM disparaît le premier : **faux**. JOSS et ALL-D disparaissent avant lui : à la génération 30, RANDOM est encore à 5,78 %, contre 0,74 % pour ALL-D et 0,50 % pour JOSS. JOSS est la plus faible au départ, parce que ses trahisons gratuites déclenchent des représailles chez toutes les stratégies réciproques.
+3. ALL-D décline une fois RANDOM disparu : **l'issue est juste, la raison est fausse**. ALL-D est sous la moyenne dès le départ, il n'a pas besoin que RANDOM disparaisse pour décliner.
+4. Les stratégies réciproques dominent à la fin : **à moitié juste**. TFT, PAVLOV et TF2T survivent, mais TESTER disparaît. Une fois les exploiteurs éliminés, l'écho contre TFT le bloque à 2500, sous les 3000 que les trois autres marquent entre elles.
 
-**Réponse à la question de départ : la victoire d'ALL-D ne dure pas.** Dans la population du cours, ALL-D passe de 20 % à 0,19 % en 30 générations, et TFT finit à 100 %. Dans la population élargie, ALL-D est à 0,74 % à la génération 30. Le classement de l'étape 1 ne dit rien sur la durée : ALL-D gagnait des points sans que ça lui assure l'avenir.
+**À retenir :**
 
-#### Comparaison avec la prédiction
-
-1. **« ALL-D grandit au début » : faux pour la population élargie, à peine vrai pour celle du cours.** Dans la population élargie, ALL-D baisse dès la première génération : son score moyen avec auto-rencontres est de 2430, sous la moyenne de la population (2461). Dans celle du cours, il est de 2296 contre 2280 de moyenne : il monte un tout petit peu (pic de 20,19 % à la génération 2, calculé directement avec la fonction d'évolution), puis s'effondre. *Explication :* on avait raisonné avec la seule victime RANDOM (3440). Mais avec les auto-rencontres, ALL-D ne fait que 2000 contre lui-même (D/D), et 2015 environ contre TFT et TESTER. Un seul bon duel sur cinq (ou sept) ne suffit pas à passer au-dessus de la moyenne.
-2. **« RANDOM disparaît vite, c'est le plus faible » : faux sur l'ordre, juste sur la fin.** RANDOM disparaît (0,05 % à la génération 70 en population élargie), mais plus tard qu'ALL-D et JOSS : à la génération 30, RANDOM est encore à 5,78 % contre 0,74 % et 0,50 %. JOSS est le plus faible au départ (2335 en population élargie, 2151 dans celle du cours, contre 2417 et 2224 pour RANDOM). *Explication :* RANDOM se fait écraser par ALL-D (1040), mais JOSS gagne bien moins que lui contre les stratégies qui coopèrent : 2829 contre TF2T (RANDOM : 3290), 2111 contre TFT (2497), 2026 contre TESTER (2572). Les trahisons de JOSS déclenchent des échos qui lui coûtent plus que les 5 points gagnés.
-3. **« Une fois RANDOM disparu, ALL-D décline » : l'issue est juste, le mécanisme est faux.** ALL-D est quasi éteint (0,74 % à la génération 30) alors que RANDOM compte encore 5,78 %. ALL-D n'a donc pas eu besoin que RANDOM disparaisse : il perdait déjà face à la moyenne dès le début.
-4. **« À la fin, les stratégies réciproques dominent (TFT, TESTER et les nouvelles) » : à moitié juste.** TFT domine (66,07 % en population élargie, 100 % dans celle du cours), avec PAVLOV (19,97 %) et TF2T (13,97 %). **TESTER disparaît** (0,00 % à la génération 100), alors qu'il montait à 19 % vers la génération 20 (23 % vers la génération 11 dans la population du cours). *Explication :* TESTER profite d'abord de TF2T (3670). Quand ALL-D, RANDOM et JOSS ont disparu, il ne reste que TFT, PAVLOV et TF2T. À la génération 60 (TFT 65,39 %, PAVLOV 19,82 %, TF2T 13,97 %), son score est de 0,6539 × 2500 + 0,1982 × 2335 + 0,1397 × 3670, soit environ 2610, alors que les trois autres font 3000 entre elles. Il est donc sous la moyenne et décline. Son écho avec TFT (2500) et son duel moyen contre PAVLOV (2335) lui coûtent plus que ce qu'il prend à TF2T (3670).
-
-#### Ce qu'on retient de la sélection
-
-- **Trois stratégies survivent ensemble en population élargie, et les parts finales (66 / 20 / 14) sont figées.** TFT, PAVLOV et TF2T font 3000 entre elles : leurs scores sont égaux, donc leurs parts ne bougent plus. Le rapport 66 / 20 / 14 vient du chemin parcouru pendant que les autres disparaissaient, pas d'une supériorité de TFT à la fin. Par exemple, TFT a pris l'avantage au début contre ALL-D (1990, contre 1000 pour PAVLOV et 1980 pour TF2T) et contre TESTER (2500, contre 2335 pour PAVLOV).
-- **PAVLOV décroît d'abord (13,27 % à la génération 10), puis monte jusqu'à 19,97 %** quand ALL-D, son prédateur (3500), disparaît. TF2T monte au début (score de départ de 2517, au-dessus de la moyenne de 2461), puis redescend vers 13,97 % : tant que TESTER est nombreux (19 % vers la génération 20), il lui prend beaucoup de points (3670 contre 1995). Sa part se fige quand TESTER disparaît.
-- **Lien avec le cours :** c'est le tournoi « écologique » d'Axelrod. La diapo 62 le dit : une stratégie coopérative gagne au total si elle croise assez de coopérateurs ; la sélection fabrique cette situation en éliminant les exploiteurs. La diapo 69 aussi : TFT n'est pas optimal en soi, il gagne ici parce que la population s'est remplie de partenaires qui coopèrent avec lui. Les règles d'Axelrod (diapo 70) se vérifient : les stratégies gentilles qui rendent la pareille survivent (TFT, PAVLOV, TF2T), les trop malignes (TESTER, JOSS) et celle qui trahit toujours (ALL-D) disparaissent.
-- **Limite :** le modèle n'a pas de mutation. Une stratégie à 0,00 % ne revient jamais, et on n'a testé qu'une graine pour la matrice de départ.
+- Les parts 66 / 20 / 14 restent figées parce que les trois survivantes marquent 3000 entre elles : plus rien ne les départage. Ce partage s'est joué pendant les premières générations, quand TFT résistait mieux que les deux autres à ALL-D et à TESTER. Il ne traduit pas une supériorité de TFT à la fin.
+- C'est le tournoi « écologique » d'Axelrod : la sélection élimine les exploiteurs, et il ne reste que les coopérateurs dont TFT a besoin pour gagner (diapos 62 et 69).
+- **Limite :** le modèle n'a pas de mutation, donc une stratégie éteinte ne revient jamais.
 
 ---
 
@@ -411,12 +362,9 @@ Commandes : `python3 src/selection.py` (population élargie, 7 stratégies) et `
 - **Prédiction du bruit :** le premier lancement à 5 % a été fait avant d'écrire une prédiction. Pour respecter la démarche demandée, on l'a traité comme une observation exploratoire, et on a fait une vraie prédiction pour 10 % avant de lancer ce tournoi.
 - **Erreur d'import (`ImportError`) :** `bruit.py` utilise aussi les stratégies d'Ethan. Tant que son fichier était vide, le script plantait. On a placé un dictionnaire vide dans `strategies_nouvelles.py`, pour que chaque partie du projet fonctionne sans attendre l'autre.
 - **Limite du générateur unique :** tous les tirages viennent du même générateur. Ajouter une stratégie change l'ordre des tirages, donc les duels impliquant RANDOM ou JOSS donnent des scores légèrement différents d'un tournoi à l'autre (par exemple, TFT contre RANDOM vaut 2487 sans auto-rencontres et 2484 avec). Les comparaisons restent valables, car les écarts dus au hasard sont faibles devant ceux qu'on analyse, mais il faut le garder en tête.
-- **Incohérence de reproductibilité du bruit (trouvée à l'assemblage) :** `bruit.py` importe `STRATEGIES_NOUVELLES`. Une fois TF2T et PAVLOV ajoutées, `python3 src/bruit.py` donne 7 stratégies, alors que les tableaux de la section 5 portent sur 5. Les chiffres d'Amine restent exacts : en appelant `tournoi()` avec les 5 stratégies du cours et le bruit à 5 % et 10 %, on retrouve ses scores (9877 et 10277 pour ALL-D, par exemple). Mais relancer `python3 src/bruit.py` ne les redonne plus, et elle écrase `resultats/bruit_5pct.txt` par un tableau à 7 stratégies (on l'a restauré avec `git checkout`). De plus, `resultats/bruit_10pct.txt`, d'où vient le tableau à 10 %, n'est pas dans le dépôt. Pour la sous-section sur les 7 stratégies, on a gardé la sortie dans des fichiers à part (`resultats/bruit_elargie_*.txt`). Une vraie correction demanderait une option `--population` dans `bruit.py`.
-- **Captures manquantes :** le journal d'Amine renvoie vers `captures/mohamed_*.png`, mais le dossier `journal/captures/` ne contenait que `.gitkeep` avant nos images. Ces images sont à produire par lui.
-- **README vide :** il ne contient aucune commande de relance. Les commandes pour l'étape 2 et la sélection sont à y ajouter.
-- **Comparaison des totaux entre étapes :** à l'étape 2, les totaux (15063 pour TFT) ne se comparent pas à ceux de l'étape 1 (9056), puisqu'il y a plus d'adversaires. On a ajouté le score moyen par adversaire.
-- **matplotlib absent :** il n'était pas installé. On l'a installé avec `pip3 install --user matplotlib`, et `selection.py` fonctionne quand même sans lui (message, pas de graphique).
-- **Prédictions fausses ou incomplètes :** TESTER ne monte pas (étape 2), ALL-D ne grandit pas en population élargie et ne disparaît pas parce que RANDOM disparaît (sélection). On a gardé les prédictions telles qu'écrites et expliqué l'écart au lieu de les corriger après coup.
+- **`bruit.py` ne redonne plus les tableaux à 5 stratégies.** Il lit `STRATEGIES_NOUVELLES` et joue donc à 7 stratégies depuis l'ajout de TF2T et PAVLOV. Les chiffres de la section 5 restent justes : on les retrouve en appelant `tournoi()` avec les 5 stratégies du cours. Pour pouvoir les relancer, il faudrait ajouter une option `--population` à `bruit.py`. Nos sorties à 7 stratégies sont rangées à part, dans `resultats/bruit_elargie_*.txt`.
+- **Les totaux ne se comparent pas entre les étapes 1 et 2**, puisque chaque stratégie a 6 adversaires au lieu de 4. On compare la moyenne par adversaire.
+- **matplotlib n'était pas installé.** On l'a installé avec `pip3 install --user matplotlib`. `selection.py` tourne quand même sans lui, mais ne produit alors pas de graphique.
 
 ---
 
@@ -426,9 +374,7 @@ Commandes : `python3 src/selection.py` (population élargie, 7 stratégies) et `
 - **La réciprocité stricte a deux défauts :** l'écho de représailles (TFT contre TESTER) et l'incapacité à distinguer une erreur d'une trahison (TFT avec du bruit à 10 %).
 - **Le bruit a un double effet, qu'on n'avait pas prévu :** à faible dose, il débloque des situations figées et augmente la coopération ; à plus forte dose, il permet aux stratégies opportunistes d'exploiter les stratégies rigides.
 - Ces observations justifient nos deux nouvelles stratégies (TF2T contre l'écho, PAVLOV contre les erreurs), et l'étape de sélection permet de tester si la victoire d'ALL-D peut durer.
-
-- **Étape 2 :** avec TF2T et PAVLOV, TFT passe 1er (15063 contre 15012 pour ALL-D), de justesse. Il a enfin des partenaires (3000 avec chacune des deux). Mais ALL-D profite aussi de PAVLOV (3500) et reste à 51 points. Les deux nouvelles stratégies ne sont ni l'une ni l'autre gagnantes : TF2T finit 4e, PAVLOV 6e.
-- **Étape 3, sélection :** la victoire d'ALL-D à l'étape 1 ne dure pas. Il est sous 1 % à la génération 30, et TFT finit à 100 % dans la population du cours, à 66 % en population élargie (avec PAVLOV 20 % et TF2T 14 %). TESTER, qui montait au début, disparaît.
-- **Étape 3, bruit sur la population élargie :** PAVLOV et TF2T ne corrigent pas le défaut de TFT dans ce tournoi. PAVLOV perd moins de points que TFT mais reste 6e, TF2T finit dernière.
-- **Le bon score dépend du contexte :** la 1re place de TFT change entre l'étape 1, l'étape 2, les auto-rencontres, le bruit et la sélection. Aucune stratégie n'est la meilleure partout, ce qui rejoint la diapo 69 du cours.
-- **Limites :** une seule graine pour tous les tournois, un modèle de sélection sans mutation, et quelques hypothèses non mesurées (PAVLOV contre sa copie avec du bruit, PAVLOV qui exploite TF2T).
+- **Étape 2 :** grâce à deux partenaires qui coopèrent avec lui, TFT repasse 1er, de justesse. TF2T et PAVLOV ne gagnent pas elles-mêmes.
+- **Sélection :** la victoire d'ALL-D ne dure pas. TFT finit seul avec la population du cours, et avec PAVLOV et TF2T dans la population élargie.
+- **Bruit avec la population élargie :** PAVLOV supporte mieux le bruit que TFT, mais TF2T le supporte moins bien. Aucune des deux ne prend la tête.
+- **Aucune stratégie n'est la meilleure partout :** la 1re place change selon la population, le bruit et la sélection (diapo 69). Limites : une seule graine testée, et un modèle de sélection sans mutation.
