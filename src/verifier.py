@@ -1,5 +1,5 @@
 """
-Vérifications du moteur sur des cas dont on connaît le résultat à l'avance.
+Vérifications du moteur sur des cas dont on connaît le résultat à l'avance .
 À lancer avant les vrais tournois : python src/verifier.py
 """
 

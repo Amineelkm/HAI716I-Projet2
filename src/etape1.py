@@ -1,11 +1,5 @@
-"""
-Étape 1 : tournoi de base avec les cinq stratégies du cours.
-
-Utilisation :
-    python src/etape1.py                  (graine 42, sans auto-rencontres)
-    python src/etape1.py --graine 7       (autre graine)
-    python src/etape1.py --auto           (avec auto-rencontres)
-"""
+"""Étape 1 : tournoi de base avec les 5 stratégies du cours.
+Utilisation : python src/etape1.py [--auto] [--graine N]"""
 
 import argparse
 from pathlib import Path

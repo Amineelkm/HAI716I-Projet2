@@ -1,9 +1,4 @@
-"""
-Les cinq stratégies du cours 4 (diapositive 64).
-
-Interface : strategie(mon_historique, historique_adv, rng) -> 'C' ou 'D'
-"""
-
+"""Les 5 stratégies du cours 4 (diapo 64) : strategie(mon_hist, hist_adv, rng) -> 'C' ou 'D'."""
 
 def all_d(mon_hist, hist_adv, rng):
     """ALL-D : trahit à chaque tour."""
@@ -23,15 +18,8 @@ def tit_for_tat(mon_hist, hist_adv, rng):
 
 
 def tester(mon_hist, hist_adv, rng):
-    """TESTER : « Si l'adversaire riposte, joue TIT-FOR-TAT ; sinon répète C, C, D ».
-
-    Conventions choisies (le cours ne les précise pas) :
-      - tour 1 : D (la provocation) ;
-      - tour 2 : C (on ne sait pas encore si l'adversaire riposte) ;
-      - riposte = l'adversaire joue D au tour 2, juste après notre trahison ;
-      - s'il a riposté : TIT-FOR-TAT à partir du tour 3 ;
-      - sinon : cycle C, C, D à partir du tour 2 (tours 2, 3, 4 = C, C, D, etc.).
-    """
+    """TESTER : D au tour 1, C au tour 2 ; si l'adversaire riposte (D au tour 2) -> TFT,
+    sinon cycle C, C, D."""
     tour = len(mon_hist)          # 0 = premier tour
     if tour == 0:
         return 'D'
@@ -44,11 +32,7 @@ def tester(mon_hist, hist_adv, rng):
 
 
 def joss(mon_hist, hist_adv, rng):
-    """JOSS : « TIT-FOR-TAT, mais remplace C par D une fois sur dix ».
-
-    Convention choisie : les 10 % s'appliquent à chaque tour où TFT jouerait C,
-    y compris le premier tour (lecture littérale de la règle).
-    """
+    """JOSS : TFT, mais remplace C par D avec 10 % de chances (y compris au tour 1)."""
     coup = tit_for_tat(mon_hist, hist_adv, rng)
     if coup == 'C' and rng.random() < 0.10:
         return 'D'

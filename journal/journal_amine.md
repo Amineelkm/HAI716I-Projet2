@@ -202,6 +202,8 @@ Chaque coup choisi est inversé avec une probabilité p. Le coup inversé est **
 
 Le premier lancement à 5 %, la valeur proposée par le sujet, a d'abord servi à tester le script, avant qu'une prédiction soit écrite. On le traite donc comme une observation exploratoire. C'est elle qui a guidé la vraie prédiction, faite ensuite pour 10 %.
 
+Commande : `python src/bruit.py --cours`, sortie dans `resultats/bruit_5pct.txt`. L'option `--cours` limite le tournoi aux 5 stratégies du cours (voir les impasses).
+
 ![Bruit 5 %](captures/mohamed_bruit_5.png)
 
 | Stratégie   | Rang sans → avec | Score sans → avec | Coop. sans → avec |
@@ -223,6 +225,8 @@ Le premier lancement à 5 %, la valeur proposée par le sujet, a d'abord servi �
 3. ALL-D restera 1er, mais son avance sur le 2e va diminuer, car le bruit aide les stratégies réciproques à sortir des échos.
 
 ### Résultats à 10 %
+
+Commande : `python src/bruit.py --cours --bruit 0.10`, sortie dans `resultats/bruit_10pct.txt`.
 
 ![Bruit 10 %](captures/mohamed_bruit_10.png)
 
@@ -248,6 +252,28 @@ On avait sous-estimé un effet : **TFT réagit mécaniquement à chaque erreur, 
 - **Pourquoi JOSS monte à la 2e place :** ses trahisons volontaires lui coûtaient cher sans bruit, car elles déclenchaient des représailles. Avec beaucoup de bruit, tout le monde subit des trahisons, et les siennes ne se remarquent plus : elle garde le bénéfice de l'exploitation sans en payer le prix.
 
 À 5 %, l'effet de déblocage dominait. À 10 %, c'est l'effet d'exploitation qui l'emporte. **Le bruit révèle que TFT est trop rigide :** il ne sait pas faire la différence entre une erreur et une trahison. C'est exactement le défaut que PAVLOV et TF2T sont censées corriger.
+
+### Le bruit avec les 7 stratégies
+
+Commandes : `python src/bruit.py` (5 %) et `python src/bruit.py --bruit 0.10` (10 %), sorties dans `resultats/bruit_elargie_5pct.txt` et `resultats/bruit_elargie_10pct.txt`. Ethan analyse le classement à 10 % dans le journal commun. On se limite ici à une question : l'effet de déblocage observé à 5 % existe-t-il encore quand la population contient de vrais coopérateurs ?
+
+**Ce n'est pas une prédiction à l'aveugle :** les sorties à 7 stratégies étaient déjà dans le dépôt quand on a relancé ce tournoi. On s'en sert donc pour tester l'explication donnée plus haut, « le bruit ne détruit que la coopération qui existe ». Si elle est juste, TFT doit perdre des points dès 5 %, car il coopère maintenant pleinement avec TF2T et PAVLOV (3000 points contre chacune sans bruit).
+
+| TIT-FOR-TAT       | Sans bruit | 5 %    | 10 %   |
+| ----------------- | ---------- | ------ | ------ |
+| Score total       | 15063      | 14752  | 14808  |
+| Coopération       | 51,6 %     | 47,0 % | 47,6 % |
+| Contre PAVLOV     | 3000       | 2501   | 2504   |
+| Contre TF2T       | 3000       | 3003   | 3009   |
+| Contre JOSS       | 2086       | 2263   | 2330   |
+| Contre TESTER     | 2500       | 2546   | 2568   |
+
+- **L'explication tient.** Avec les 5 stratégies du cours, un bruit de 5 % faisait monter le score de TFT (9056 → 9349) et sa coopération (27,3 % → 39,1 %). Avec 7 stratégies, il les fait baisser dès 5 % : −311 points et 51,6 % → 47,0 %.
+- **Le déblocage existe toujours** contre JOSS (+177) et TESTER (+46), mais il ne compense plus la perte contre PAVLOV (−499).
+- **Pourquoi PAVLOV :** on l'a vérifié coup par coup en forçant une seule erreur. TFT et PAVLOV entrent alors dans un cycle de 3 tours (TFT : C, D, D ; PAVLOV : D, D, C) où chacune marque 7 points, soit 2,33 par tour au lieu de 3, jusqu'à l'erreur suivante. TFT punit le D de PAVLOV, et PAVLOV, qui a « perdu », change de coup au mauvais moment. Les deux stratégies savent gérer les erreurs chacune à sa façon, mais leurs deux façons ne sont pas compatibles.
+- **Contre TF2T, rien ne bouge** (3000 → 3003) : TF2T ignore une trahison isolée, et la coopération reprend dès le tour suivant (vérifié aussi coup par coup).
+
+**Conclusion :** l'effet du bruit dépend de la population. Quand il n'y a pas de coopération, il en crée en débloquant les échos. Quand il y en a, il la détruit, sauf entre des stratégies qui pardonnent une erreur isolée.
 
 ---
 
@@ -286,6 +312,7 @@ _Section à remplir avec la sortie de `python src/selection.py` (et le graphique
 - **Prédiction du bruit :** le premier lancement à 5 % a été fait avant d'écrire une prédiction. Pour respecter la démarche demandée, on l'a traité comme une observation exploratoire, et on a fait une vraie prédiction pour 10 % avant de lancer ce tournoi.
 - **Erreur d'import (`ImportError`) :** `bruit.py` utilise aussi les stratégies d'Ethan. Tant que son fichier était vide, le script plantait. On a placé un dictionnaire vide dans `strategies_nouvelles.py`, pour que chaque partie du projet fonctionne sans attendre l'autre.
 - **Limite du générateur unique :** tous les tirages viennent du même générateur. Ajouter une stratégie change l'ordre des tirages, donc les duels impliquant RANDOM ou JOSS donnent des scores légèrement différents d'un tournoi à l'autre (par exemple, TFT contre RANDOM vaut 2487 sans auto-rencontres et 2484 avec). Les comparaisons restent valables, car les écarts dus au hasard sont faibles devant ceux qu'on analyse, mais il faut le garder en tête.
+- **`bruit.py` ne redonnait plus nos chiffres à 5 stratégies.** Une fois les stratégies d'Ethan ajoutées, il jouait automatiquement à 7, et relancer `python src/bruit.py` écrasait même `resultats/bruit_5pct.txt` avec les résultats à 7 stratégies. On a ajouté l'option `--cours` (seulement les 5 stratégies du cours) et séparé les fichiers de sortie : `bruit_<p>pct.txt` avec `--cours`, `bruit_elargie_<p>pct.txt` sans. On a vérifié que `python src/bruit.py --cours` redonne exactement `resultats/bruit_5pct.txt`, et que `python src/bruit.py --cours --bruit 0.10` redonne le tableau à 10 % de la section 5. Les sorties à 7 stratégies d'Ethan sont aussi redonnées à l'identique.
 
 ---
 
