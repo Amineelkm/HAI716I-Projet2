@@ -1,0 +1,51 @@
+=== Sans bruit (graine 42) ===
+
+Classement :
+  1. TIT-FOR-TAT       15063   (coopération :  51.6 %)
+  2. ALL-D             15012   (coopération :   0.0 %)
+  3. TESTER            14973   (coopération :  34.2 %)
+  4. TF2T              14409   (coopération :  74.2 %)
+  5. RANDOM            14174   (coopération :  49.5 %)
+  6. PAVLOV            14155   (coopération :  61.1 %)
+  7. JOSS              13979   (coopération :  25.3 %)
+
+Matrice des scores (ligne = score de la stratégie contre la colonne) :
+                      ALL-D      RANDOM TIT-FOR-TAT      TESTER        JOSS        TF2T      PAVLOV
+ALL-D                     0        3440        2015        2015        2012        2030        3500
+RANDOM                 1040           0        2497        2572        2368        3290        2407
+TIT-FOR-TAT            1990        2487           0        2500        2086        3000        3000
+TESTER                 1990        2452        2500           0        2026        3670        2335
+JOSS                   1992        2593        2111        2026           0        2829        2428
+TF2T                   1980        1960        3000        1995        2474           0        3000
+PAVLOV                 1000        2572        3000        2335        2248        3000           0
+
+=== Avec bruit de 5 % (graine 42) ===
+
+Classement :
+  1. ALL-D             15648   (coopération :   4.5 %)
+  2. JOSS              14968   (coopération :  39.9 %)
+  3. TESTER            14935   (coopération :  48.0 %)
+  4. TIT-FOR-TAT       14752   (coopération :  47.0 %)
+  5. RANDOM            14585   (coopération :  49.9 %)
+  6. PAVLOV            14028   (coopération :  50.1 %)
+  7. TF2T              13705   (coopération :  71.0 %)
+
+Matrice des scores (ligne = score de la stratégie contre la colonne) :
+                      ALL-D      RANDOM TIT-FOR-TAT      TESTER        JOSS        TF2T      PAVLOV
+ALL-D                     0        3345        2178        2196        2158        2328        3443
+RANDOM                 1180           0        2491        2874        2380        3228        2432
+TIT-FOR-TAT            1953        2486           0        2546        2263        3003        2501
+TESTER                 1956        2209        2571           0        2299        3371        2529
+JOSS                   1973        2585        2338        2459           0        3065        2548
+TF2T                   1853        2063        2783        2241        2560           0        2205
+PAVLOV                 1103        2582        2501        2529        2348        2965           0
+
+=== Comparaison ===
+Stratégie       rang sans rang avec  score sans  score avec  coop sans  coop avec
+ALL-D                   2         1       15012       15648       0.0%       4.5%
+JOSS                    7         2       13979       14968      25.3%      39.9%
+TESTER                  3         3       14973       14935      34.2%      48.0%
+TIT-FOR-TAT             1         4       15063       14752      51.6%      47.0%
+RANDOM                  5         5       14174       14585      49.5%      49.9%
+PAVLOV                  6         6       14155       14028      61.1%      50.1%
+TF2T                    4         7       14409       13705      74.2%      71.0%
