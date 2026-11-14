@@ -3,12 +3,14 @@
 probabilité. On compare le tournoi sans bruit et le tournoi avec bruit,
 avec la même population et la même graine.
 
-La population = les 5 stratégies du cours + les nouvelles stratégies
-d'Ethan (strategies_nouvelles.py) dès qu'elles existent.
+Deux populations possibles :
+    cours   : les 5 stratégies du cours
+    elargie : les 5 du cours + TF2T et PAVLOV (strategies_nouvelles.py)
 
 Utilisation :
-    python src/bruit.py                   (bruit de 5 %)
-    python src/bruit.py --bruit 0.10      (bruit de 10 %)
+    python3 src/bruit.py --population cours                 (5 stratégies, bruit de 5 %)
+    python3 src/bruit.py --population cours --bruit 0.10    (5 stratégies, bruit de 10 %)
+    python3 src/bruit.py --bruit 0.10                       (7 stratégies, bruit de 10 %)
 """
 
 import argparse
@@ -29,9 +31,13 @@ def main():
     parser.add_argument("--graine", type=int, default=42)
     parser.add_argument("--parties", type=int, default=5)
     parser.add_argument("--tours", type=int, default=200)
+    parser.add_argument("--population", choices=["cours", "elargie"], default="elargie")
     args = parser.parse_args()
 
-    population = {**STRATEGIES_COURS, **STRATEGIES_NOUVELLES}
+    if args.population == "cours":
+        population = dict(STRATEGIES_COURS)
+    else:
+        population = {**STRATEGIES_COURS, **STRATEGIES_NOUVELLES}
 
     sans = tournoi(population, args.parties, args.tours, args.graine, bruit=0.0)
     avec = tournoi(population, args.parties, args.tours, args.graine, bruit=args.bruit)
@@ -57,7 +63,8 @@ def main():
     print(texte)
 
     DOSSIER_RESULTATS.mkdir(exist_ok=True)
-    nom_fichier = f"bruit_{pct:g}pct.txt"
+    prefixe = "bruit" if args.population == "cours" else "bruit_elargie"
+    nom_fichier = f"{prefixe}_{pct:g}pct.txt"
     (DOSSIER_RESULTATS / nom_fichier).write_text(texte + "\n", encoding="utf-8")
     print(f"\nRésultats enregistrés dans resultats/{nom_fichier}")
 

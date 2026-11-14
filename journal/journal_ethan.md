@@ -1,6 +1,6 @@
-# Journal de bord – HAI716I Projet 2 (partie 1)
+# Journal de bord – Ethan Baudrand
 
-Mohamed Amine EL KAMEL et Ethan Baudrand. Tournoi du dilemme du prisonnier itéré.
+HAI716I Projet 2 (partie 1), tournoi du dilemme du prisonnier itéré. Binôme avec Mohamed Amine EL KAMEL : il a écrit le moteur, les stratégies du cours, l'étape 1 et le bruit ; j'ai écrit TF2T, PAVLOV, l'étape 2 et la sélection.
 
 Le README donne la commande qui relance chaque tournoi. Chaque script écrit sa sortie dans `resultats/`.
 
@@ -243,7 +243,7 @@ Commandes : `python3 src/selection.py` pour les 7 stratégies, et `python3 src/s
 ## 7. Impasses
 
 - **Le bruit à 5 % a été lancé avant d'écrire la prédiction.** On l'a traité comme une observation exploratoire, et on a écrit une vraie prédiction avant de lancer le tournoi à 10 %.
-- **`ImportError` :** `bruit.py` importe les stratégies d'Ethan, et plantait tant que son fichier était vide. On a placé un dictionnaire vide dans `strategies_nouvelles.py`, pour que chacun puisse avancer sans attendre l'autre.
+- **`ImportError` :** `bruit.py` importe mes stratégies, et plantait tant que mon fichier était vide. On a placé un dictionnaire vide dans `strategies_nouvelles.py`, pour que chacun puisse avancer sans attendre l'autre.
 - **`bruit.py` ne redonne plus les tableaux à 5 stratégies.** Il lit `STRATEGIES_NOUVELLES`, donc il joue à 7 stratégies depuis l'ajout de TF2T et PAVLOV. Les chiffres à 5 stratégies restent justes : on les retrouve en appelant `tournoi()` avec les 5 stratégies du cours. Pour pouvoir les relancer, il faudrait ajouter une option `--population` à `bruit.py`.
 - **Tous les tirages passent par un seul générateur.** Ajouter une stratégie décale donc les tirages, et les duels impliquant RANDOM ou JOSS varient légèrement d'un tournoi à l'autre (TFT contre RANDOM vaut 2487 ou 2484). Ces écarts restent faibles devant ceux qu'on analyse.
 - **Les totaux ne se comparent pas entre les étapes 1 et 2**, puisque chaque stratégie a 6 adversaires au lieu de 4. On compare la moyenne par adversaire.

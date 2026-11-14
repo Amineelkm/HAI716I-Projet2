@@ -1,0 +1,41 @@
+=== Sans bruit (graine 42) ===
+
+Classement :
+  1. ALL-D              9482   (coopération :   0.0 %)
+  2. TIT-FOR-TAT        9056   (coopération :  27.3 %)
+  3. TESTER             8976   (coopération :  26.7 %)
+  4. JOSS               8728   (coopération :  14.7 %)
+  5. RANDOM             8477   (coopération :  49.4 %)
+
+Matrice des scores (ligne = score de la stratégie contre la colonne) :
+                      ALL-D      RANDOM TIT-FOR-TAT      TESTER        JOSS
+ALL-D                     0        3440        2015        2015        2012
+RANDOM                 1040           0        2497        2572        2368
+TIT-FOR-TAT            1990        2487           0        2500        2079
+TESTER                 1990        2452        2500           0        2034
+JOSS                   1992        2593        2104        2039           0
+
+=== Avec bruit de 10 % (graine 42) ===
+
+Classement :
+  1. ALL-D             10277   (coopération :  10.2 %)
+  2. JOSS               9429   (coopération :  35.5 %)
+  3. TESTER             9278   (coopération :  43.9 %)
+  4. TIT-FOR-TAT        9217   (coopération :  40.0 %)
+  5. RANDOM             8984   (coopération :  50.1 %)
+
+Matrice des scores (ligne = score de la stratégie contre la colonne) :
+                      ALL-D      RANDOM TIT-FOR-TAT      TESTER        JOSS
+ALL-D                     0        3279        2317        2316        2365
+RANDOM                 1319           0        2560        2707        2398
+TIT-FOR-TAT            1937        2450           0        2547        2283
+TESTER                 1981        2402        2527           0        2368
+JOSS                   1925        2553        2448        2503           0
+
+=== Comparaison ===
+Stratégie       rang sans rang avec  score sans  score avec  coop sans  coop avec
+ALL-D                   1         1        9482       10277       0.0%      10.2%
+JOSS                    4         2        8728        9429      14.7%      35.5%
+TESTER                  3         3        8976        9278      26.7%      43.9%
+TIT-FOR-TAT             2         4        9056        9217      27.3%      40.0%
+RANDOM                  5         5        8477        8984      49.4%      50.1%
