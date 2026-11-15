@@ -2,7 +2,7 @@
 
 Mohamed Amine EL KAMEL et Ethan Baudrand.
 
-Le journal de bord de chacun est dans [`journal/journal_X.md`](journal/journal_X.md).
+Chacun a son journal de bord : [`journal/journal_ethan.md`](journal/journal_ethan.md) et [`journal/journal_amine.md`](journal/journal_amine.md).
 
 ## Prérequis
 
