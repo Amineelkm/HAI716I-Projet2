@@ -1,8 +1,9 @@
-"""Étape 3 - Bruit : chaque coup est inversé avec une probabilité p.
+"""
+Étape 3 - Bruit : chaque coup est inversé avec une probabilité p.
 Compare le tournoi sans et avec bruit (même population, même graine).
 
 Population : 7 stratégies par défaut, 5 du cours avec --population cours (ou --cours).
-Utilisation : python src/bruit.py [--population cours] [--bruit 0.10]   (5 % par défaut)
+Utilisation :python src/bruit.py [--population cours] [--bruit 0.10]   (5 % par défaut)
 Sortie : resultats/bruit_<p>pct.txt (cours) ou bruit_elargie_<p>pct.txt"""
 
 import argparse
