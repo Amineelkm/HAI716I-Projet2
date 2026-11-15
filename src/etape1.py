@@ -1,4 +1,5 @@
-"""Étape 1 : tournoi de base avec les 5 stratégies du cours.
+"""
+Étape 1 : tournoi de base avec les 5 stratégies du cours.
 Utilisation : python src/etape1.py [--auto] [--graine N]"""
 
 import argparse
