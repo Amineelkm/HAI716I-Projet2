@@ -39,6 +39,7 @@ def joss(mon_hist, hist_adv, rng):
     return coup
 
 
+
 # Population de base utilisée par les tournois
 STRATEGIES_COURS = {
     "ALL-D": all_d,
