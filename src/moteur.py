@@ -43,8 +43,7 @@ def partie(strat_a, strat_b, nb_tours, rng, bruit=0.0, gains=GAINS):
     return score_a, score_b, hist_a, hist_b
 
 
-def tournoi(strategies, nb_parties=5, nb_tours=200, graine=42, bruit=0.0,
-            auto_rencontres=False, gains=GAINS):
+def tournoi(strategies, nb_parties=5, nb_tours=200, graine=42, bruit=0.0, auto_rencontres=False, gains=GAINS):
     """Tournoi tous contre tous : chaque paire joue nb_parties parties de nb_tours tours.
     Renvoie les scores totaux, la matrice des duels et les taux de coopération."""
     rng = random.Random(graine)
@@ -82,7 +81,7 @@ def tournoi(strategies, nb_parties=5, nb_tours=200, graine=42, bruit=0.0,
 
 def classement(totaux):
     """Trie les stratégies par score total décroissant.
-    Renvoie une liste [(nom, score), ...] du premier au dernier.
+     Renvoie une liste [(nom, score), ...] du premier au dernier.
     """
     return sorted(totaux.items(), key=lambda x: x[1], reverse=True)
 
